@@ -1,18 +1,15 @@
 import os
-
 import numpy as np
 
-folder = 'D:/nampi/'
-out_big_file = 'D:/nambibig/a'     # no .npy
+in_folder = 'D:/f/democlipping/parsing/numpy/'
+out_file = 'D:/nambibig/a'     # no .npy
 
-files = os.listdir(folder)
-files = files[:5000]
-for cnt,file in enumerate(files):
-    if cnt == 0:
-        big = np.load(f"{folder}{file}")
-    else:
-        a = np.load(f"{folder}{file}")
-        big = np.concatenate((big,a))
-    print(cnt)
-    
-np.save(out_big_file)
+def array_concatenator(in_folder,out_file):
+    files = os.listdir(in_folder)
+    a = np.concatenate([np.load(f"{in_folder}{file}")['arr_0'] for file in files])
+    print(a.shape)
+    np.save(out_file)
+
+
+if __name__ == "__main__":
+    array_concatenator(in_folder,out_file)
